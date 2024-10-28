@@ -1,1 +1,3 @@
 # Paise_Tracker
+
+This project aims to create a mobile expense-tracking app using Python's Kivy for the interface and Google Sheets as a serverless backend. Users can log, view, and categorize expenses from their mobile devices, with data stored securely in Google Sheets via the `gspread` library and authenticated using `oauth2client`. The app’s Kivy interface will feature input fields for expense details, buttons for easy data entry, and a list view to display and filter expenses. By leveraging Google Sheets as a shared database, this approach allows for real-time collaboration and minimizes backend maintenance.
