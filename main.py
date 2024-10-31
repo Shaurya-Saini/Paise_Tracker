@@ -2,23 +2,41 @@ from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.lang import Builder
+from kivy.uix.textinput import TextInput
 
-class BoxLayoutHomePage(BoxLayout):
+class Home(Screen):
     pass
-    '''def __init__(self,**kwargs):
-        super().__init__(**kwargs)
-        self.orientation = "vertical"
-        b1 = Button(text = "Add Expence")
-        b2 = Button(text = "Add Income")
-        b3 = Button(text = "Records")
-        self.add_widget(b1)
-        self.add_widget(b2)
-        self.add_widget(b3)'''
 
-class MainWidget(Widget):
+class Exp_Page(Screen):
+    def type_click(self,value):
+        self.ids.type_exp.text = value
+
+    def add_expence(self):
+        amount = self.ids.amt_inp.text
+        type_amt = self.ids.type_exp.text
+        note = self.ids.note_inp.text
+        print("amt = ",amount,"\ntype = ",type_amt,"\nnote = ",note)
+        self.ids.amt_inp.text = ""
+        self.ids.type_exp.text= "Type"
+        self.ids.note_inp.text = ""
+
+
+class Inc_Page(Screen):
     pass
+
+class Rec_Page(Screen):
+    pass
+
+class WinMan(ScreenManager):
+    pass
+
+kv = Builder.load_file('application.kv')
 
 class TrackerApp(App):
-    pass
+    def build(self):
+        return kv
 
-TrackerApp().run()
+if __name__ == '__main__':
+    TrackerApp().run()

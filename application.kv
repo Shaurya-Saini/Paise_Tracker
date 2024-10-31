@@ -1,0 +1,145 @@
+WinMan:
+    Home:
+    Exp_Page:
+    Inc_Page:
+    Rec_Page:
+
+<Home>:
+    name:"Home"
+    BoxLayout:
+        orientation: "vertical"
+        spacing: "10dp"
+        Label:
+            text: "Paise Tracker App"
+            # font_size = "40dp"
+            # size_hint: width,height
+            size_hint: 1,None
+            height: "40dp"
+        Button:
+            text: "Add expence"
+            size_hint: .8,1
+            # x, center_x, right - only one is usable
+            # y, center_y, top
+            pos_hint: {"center_x":.5}
+            #on_press: root.add_exp_click()
+            on_release: 
+                app.root.current = "Exp"
+                root.manager.transition.direction = "left"
+        Button:
+            text: "Add income"
+            size_hint: .8,1
+            pos_hint: {"center_x":.5}
+            on_release: 
+                app.root.current = "Inc"
+                root.manager.transition.direction = "right"
+        Button:
+            text: "Records"
+            size_hint: .8,1
+            pos_hint: {"center_x":.5}
+            on_release: 
+                app.root.current = "Rec"
+                root.manager.transition.direction = "up"
+
+<Exp_Page>:
+    name: "Exp"
+    BoxLayout:
+        orientation: "vertical"
+        spacing: "10dp"
+        Label:
+            text: "Paise Tracker App"
+            size_hint: 1,None
+            height: "40dp"
+        BoxLayout:
+            size_hint: 1,.4
+            Label:
+                text: "Amount"
+            TextInput:
+                id: amt_inp
+                multiline: False
+        BoxLayout:
+            size_hint: 1,.4
+            Label:
+                text: "Type"
+            Spinner:
+                id: type_exp
+                text: "Type"
+                values: ["Education","Food","Entertainment","Groceries","Savings","Other"]
+                on_text: root.type_click(type_exp.text)
+
+        BoxLayout:
+            #spacing: "20db"
+            size_hint: 1,.4
+            Label:
+                text: "Note"
+                #font_size = 32
+            TextInput:
+                id: note_inp
+                multiline: False
+            
+        Button:
+            text: "Add"
+            on_release: root.add_expence()
+        Button:
+            text: "Home"
+            on_release: 
+                app.root.current = "Home"
+                root.manager.transition.direction = "right"
+    
+<Inc_Page>:
+    name: "Inc"
+    BoxLayout:
+        orientation: "vertical"
+        spacing: "10dp"
+        Label:
+            text: "Paise Tracker App"
+            # size_hint: width,height
+            size_hint: 1,None
+            height: "40dp"
+        BoxLayout:
+            size_hint: 1,.4
+            Label:
+                text: "Amount"
+            Button:
+                text: "12341"
+        BoxLayout:
+            size_hint: 1,.4
+            Label:
+                text: "Type"
+            Button:
+                text: "Papa"
+
+        BoxLayout:
+            size_hint: 1,.4
+            Label:
+                text: "Note"
+            Button:
+                text: "Vit ki fees ka liya"
+            
+        Button:
+            text: "Add"
+        Button:
+            text: "Home"
+            on_release: 
+                app.root.current = "Home"
+                root.manager.transition.direction = "left"
+
+
+<Rec_Page>:
+    name: "Rec"
+    BoxLayout:
+        orientation: "vertical"
+        spacing: "10dp"
+        Label:
+            text: "Paise Tracker App"
+            # font_size = "40dp"
+            # size_hint: width,height
+            size_hint: 1,None
+            height: "40dp"
+        Label:
+            text: "Show Records"
+            font_size: 32
+        Button:
+            text: "Home"
+            on_release: 
+                app.root.current = "Home"
+                root.manager.transition.direction = "down"
