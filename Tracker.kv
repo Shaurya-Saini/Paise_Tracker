@@ -1,0 +1,34 @@
+BoxLayoutHomePage:
+
+<BoxLayoutHomePage>:
+    orientation: "vertical"
+    spacing: "10dp"
+    Label:
+        text: "Paise Tracker App"
+        # size_hint: width,height
+        size_hint: 1,None
+        height: "40dp"
+    Button:
+        text: "Add expence"
+        size_hint: .8,1
+        # x, center_x, right - only one is usable
+        # y, center_y, top
+        pos_hint: {"center_x":.5}
+    Button:
+        text: "Add income"
+        size_hint: .8,1
+        pos_hint: {"center_x":.5}
+    Button:
+        text: "Records"
+        size_hint: .8,1
+        pos_hint: {"center_x":.5}
+
+<MainWidget>:
+    Button:
+        text: "Hello"
+        size: "100dp","200dp"
+        pos: "100dp","200dp"  
+    Label:
+        text: "Paise Tracker App"
+        size: "200dp","100dp"
+        pos: "300dp","500dp"
