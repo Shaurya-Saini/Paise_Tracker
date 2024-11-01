@@ -3,20 +3,32 @@ WinMan:
     Exp_Page:
     Inc_Page:
     Rec_Page:
+    Display_Page:
+    Delete_Page:
+
+
+<SpinnerOption>:
+    background_normal: ""
+    background_color: [0.5,0.5,0.5,1]
+    color: [1,1,1,1]
+
+    font_size: "20dp"
+
 
 <Home>:
     name:"Home"
+    background_color: [0, 0, 0, 1]
     BoxLayout:
         orientation: "vertical"
         spacing: "10dp"
         Label:
             text: "Paise Tracker App"
-            # font_size = "40dp"
-            # size_hint: width,height
+            font_size: "24dp"
             size_hint: 1,None
             height: "40dp"
         Button:
             text: "Add expence"
+            font_size: "20dp"
             size_hint: .8,1
             # x, center_x, right - only one is usable
             # y, center_y, top
@@ -27,6 +39,7 @@ WinMan:
                 root.manager.transition.direction = "left"
         Button:
             text: "Add income"
+            font_size: "20dp"
             size_hint: .8,1
             pos_hint: {"center_x":.5}
             on_release: 
@@ -34,91 +47,105 @@ WinMan:
                 root.manager.transition.direction = "right"
         Button:
             text: "Records"
+            font_size: "20dp"
             size_hint: .8,1
             pos_hint: {"center_x":.5}
             on_release: 
                 app.root.current = "Rec"
                 root.manager.transition.direction = "up"
 
+
 <Exp_Page>:
     name: "Exp"
+    background_color: [0, 0, 0, 1]
     BoxLayout:
         orientation: "vertical"
         spacing: "10dp"
         Label:
             text: "Paise Tracker App"
+            font_size: "24dp"
             size_hint: 1,None
             height: "40dp"
         BoxLayout:
             size_hint: 1,.4
             Label:
                 text: "Amount"
+                font_size: "20dp"
             TextInput:
                 id: amt_inp
                 multiline: False
+                font_size: "20dp"
         BoxLayout:
             size_hint: 1,.4
             Label:
                 text: "Type"
+                font_size: "20dp"
             Spinner:
                 id: type_exp
                 text: "Type"
+                font_size: "20dp"
                 values: ["Education","Food","Entertainment","Groceries","Savings","Other"]
                 on_text: root.type_click(type_exp.text)
+                
 
         BoxLayout:
             #spacing: "20db"
             size_hint: 1,.4
             Label:
                 text: "Note"
+                font_size: "20dp"
                 #font_size = 32
             TextInput:
                 id: note_inp
                 multiline: False
-            
+                font_size: "20dp"
         Button:
             text: "Add"
+            font_size: "20dp"
             on_release: root.add_expence()
         Button:
             text: "Home"
+            font_size: "20dp"
             on_release: 
                 app.root.current = "Home"
                 root.manager.transition.direction = "right"
     
 <Inc_Page>:
     name: "Inc"
+    background_color: [0, 0, 0, 1]
     BoxLayout:
         orientation: "vertical"
         spacing: "10dp"
         Label:
             text: "Paise Tracker App"
-            # size_hint: width,height
+            font_size: "24dp"
             size_hint: 1,None
             height: "40dp"
         BoxLayout:
             size_hint: 1,.4
             Label:
                 text: "Amount"
-            Button:
-                text: "12341"
-        BoxLayout:
-            size_hint: 1,.4
-            Label:
-                text: "Type"
-            Button:
-                text: "Papa"
-
+                font_size: "20dp"
+            TextInput:
+                id: amt_inp
+                multiline: False
+                font_size: "20dp"
         BoxLayout:
             size_hint: 1,.4
             Label:
                 text: "Note"
-            Button:
-                text: "Vit ki fees ka liya"
-            
+                font_size: "20dp"
+            TextInput:
+                id: note_inp
+                multiline: False
+                font_size: "20dp"
         Button:
             text: "Add"
+            font_size: "20dp"
+            on_release: root.add_income()
         Button:
             text: "Home"
+            font_size: "20dp"
             on_release: 
                 app.root.current = "Home"
                 root.manager.transition.direction = "left"
@@ -126,20 +153,152 @@ WinMan:
 
 <Rec_Page>:
     name: "Rec"
+    background_color: [0, 0, 0, 1]
     BoxLayout:
         orientation: "vertical"
         spacing: "10dp"
         Label:
             text: "Paise Tracker App"
-            # font_size = "40dp"
+            font_size: "24dp"
             # size_hint: width,height
             size_hint: 1,None
             height: "40dp"
-        Label:
-            text: "Show Records"
-            font_size: 32
+        BoxLayout:
+            orientation:"horizontal"
+            Button:
+                text: "Show\nRecords"
+                font_size: "20dp"
+                on_release:
+                    app.root.current = "Display"
+                    root.manager.transition.direction= "right"
+            Button:
+                text: "Delete\nRecord"
+                font_size: "20dp"
+                on_release:
+                    app.root.current = "Delete"
+                    root.manager.transition.direction = "left"
         Button:
             text: "Home"
+            font_size: "20dp"
             on_release: 
                 app.root.current = "Home"
                 root.manager.transition.direction = "down"
+
+<Display_Page>:
+    name: "Display"
+    background_color: [0, 0, 0, 1]
+    BoxLayout:
+        orientation: "vertical"
+        spacing: "10dp"
+        Label:
+            text: "Paise Tracker App"
+            size_hint: 1, None
+            height: "40dp"
+            font_size: "24dp"
+
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: "10dp"
+            size_hint_y: None
+            height: "50dp"
+            
+            Spinner:
+                id: type_filter
+                text: "Type"
+                font_size: "20dp"
+                values: ["All", "Income", "Expense"]
+
+            Spinner:
+                id: category_filter
+                text: "Category"
+                font_size: "20dp"
+                values: ["All", "Education", "Food", "Entertainment", "Groceries", "Savings", "Other"]
+
+            Spinner:
+                id: date_filter
+                text: "Date"
+                font_size: "20dp"
+                values: ["All", "Today", "This Week", "This Month"]
+
+        ScrollView:
+            size_hint: 1, 1
+            GridLayout:
+                id: display_grid
+                cols: 4
+                size_hint_y: None
+                row_default_height: "30dp"
+                row_force_default: True
+                height: self.minimum_height
+
+                Label:
+                    text: "Date"
+                    bold: True
+                    font_size: "20dp"
+                Label:
+                    text: "Type"
+                    bold: True
+                    font_size: "20dp"
+                Label:
+                    text: "Category"
+                    bold: True
+                    font_size: "20dp"
+                Label:
+                    text: "Amount"
+                    bold: True
+                    font_size: "20dp"
+
+                # Dynamic content from Python code will be added here
+
+        Button:
+            text: "Go Back"
+            font_size: "20dp"
+            size_hint_y: None
+            height: "50dp"
+            on_release: 
+                app.root.current = "Rec"
+                root.manager.transition.direction = "right"
+            
+
+<Delete_Page>:
+    name: "Delete"
+    background_color: [0, 0, 0, 1]
+    BoxLayout:
+        orientation: "vertical"
+        spacing: "10dp"
+        Label:
+            text: "Paise Tracker App"
+            font_size: "24dp"
+            size_hint: 1,None
+            height: "40dp"
+        BoxLayout:
+            size_hint: 1,.4
+            Label:
+                text: "Type"
+                font_size: "20dp"
+            Spinner:
+                id: type_del
+                text: "Type"
+                font_size: "20dp"
+                values: ["Income","Expence"]
+                on_text: root.type_click(type_del.text)
+
+        BoxLayout:
+            size_hint: 1,.4
+            Label:
+                text: "Id"
+                font_size: "20dp"
+            TextInput:
+                id: del_id
+                multiline: False
+                font_size: "20dp"
+        Button:
+            text: "Delete"
+            font_size: "20dp"
+            on_release: root.delete_rec()
+
+        Button:
+            text: "Go Back"
+            font_size: "20dp"
+            on_release:
+                app.root.current = "Rec"
+                root.manager.transition.direction = "right"
