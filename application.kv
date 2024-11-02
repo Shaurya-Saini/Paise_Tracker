@@ -195,43 +195,63 @@ WinMan:
             size_hint: 1, None
             height: "40dp"
             font_size: "24dp"
-
+        
         BoxLayout:
             orientation: "horizontal"
-            spacing: "10dp"
             size_hint_y: None
-            height: "50dp"
-            
-            Spinner:
-                id: type_filter
-                text: "Type"
-                font_size: "20dp"
-                values: ["All", "Income", "Expense"]
+            height: "40dp"
+            spacing: "10dp"
 
             Spinner:
-                id: category_filter
-                text: "Category"
-                font_size: "20dp"
-                values: ["All", "Education", "Food", "Entertainment", "Groceries", "Savings", "Other"]
+                id: record_spinner
+                text: "Expense"
+                values: ["Income", "Expense"]
+                on_text: root.filter_records()
 
             Spinner:
-                id: date_filter
-                text: "Date"
-                font_size: "20dp"
-                values: ["All", "Today", "This Week", "This Month"]
+                id: type_spinner
+                text: "All"
+                values: ["All","Education","Food","Entertainment","Groceries","Savings","Other"]
+                #size_hint_x: None
+                #width: "100dp"
+                on_text: root.filter_records()
+
+            Spinner:
+                id: date_spinner
+                text: "All Dates"
+                values: ["All Dates", "Today", "This Week", "This Month"]
+                #size_hint_x: None
+                #width: "100dp"
+                on_text: root.filter_records()
 
         ScrollView:
             size_hint: 1, 1
+            do_scroll_x: True 
+            do_scroll_y: True  
+
             GridLayout:
                 id: display_grid
-                cols: 4
+                cols: 5 
                 size_hint_y: None
-                row_default_height: "30dp"
+                size_hint_x: None
+                col_force_default: True
+                col_default_width: "120dp"
+                width: self.minimum_width 
                 row_force_default: True
+                row_default_height: "30dp"
                 height: self.minimum_height
 
                 Label:
+                    text: "ID"
+                    bold: True
+                    font_size: "20dp"
+                    width: "100dp"
+                Label:
                     text: "Date"
+                    bold: True
+                    font_size: "20dp"
+                Label:
+                    text: "Amount"
                     bold: True
                     font_size: "20dp"
                 Label:
@@ -239,15 +259,10 @@ WinMan:
                     bold: True
                     font_size: "20dp"
                 Label:
-                    text: "Category"
-                    bold: True
-                    font_size: "20dp"
-                Label:
-                    text: "Amount"
+                    text: "Note"
                     bold: True
                     font_size: "20dp"
 
-                # Dynamic content from Python code will be added here
 
         Button:
             text: "Go Back"
@@ -257,7 +272,7 @@ WinMan:
             on_release: 
                 app.root.current = "Rec"
                 root.manager.transition.direction = "right"
-            
+
 
 <Delete_Page>:
     name: "Delete"
