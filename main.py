@@ -79,6 +79,7 @@ class Display_Page(Screen):
         record_type = self.ids.record_spinner.text
         expense_type = self.ids.type_spinner.text
         date_filter = self.ids.date_spinner.text
+        total = 0
         if (record_type=="Expense"):
             using = workbook.worksheet("Expences list")
         else:
@@ -103,11 +104,15 @@ class Display_Page(Screen):
             self.ids.display_grid.add_widget(Label(text=record[0], font_size="18dp"))
             self.ids.display_grid.add_widget(Label(text=record[1], font_size="18dp"))
             self.ids.display_grid.add_widget(Label(text=record[2], font_size="18dp"))
+            total+=int(record[1])
             if len(record) > 3:
                 self.ids.display_grid.add_widget(Label(text=record[3], font_size="18dp")) 
             else:
                 self.ids.display_grid.add_widget(Label(text="N/A", font_size="18dp"))
             row_id += 1
+        self.ids.display_grid.add_widget(Label(text="TOTAL",font_size = "18dp"))
+        self.ids.display_grid.add_widget(Label(text="--",font_size = "18dp"))
+        self.ids.display_grid.add_widget(Label(text=str(total),font_size = "18dp"))
 
 
 
