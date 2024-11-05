@@ -43,6 +43,9 @@ class Home(Screen):
 class Exp_Page(Screen):
     def type_click(self,value):
         self.ids.type_exp.text = value
+        
+    def type_click2(self,value):    
+        self.ids.person.text = value
 
     def add_expence(self):
         exp_sheet = workbook.worksheet("Expences list")
@@ -50,26 +53,40 @@ class Exp_Page(Screen):
         amount = self.ids.amt_inp.text
         type_amt = self.ids.type_exp.text
         note = self.ids.note_inp.text
+        who = self.ids.person.text
         exp_sheet.update_cell(filled_rows+1,1,today)
         exp_sheet.update_cell(filled_rows+1,2,amount)
         exp_sheet.update_cell(filled_rows+1,3,type_amt)
         exp_sheet.update_cell(filled_rows+1,4,note)
+        exp_sheet.update_cell(filled_rows+1,5,who)
         self.ids.amt_inp.text = ""
         self.ids.type_exp.text= "Type"
         self.ids.note_inp.text = ""
 
 
 class Inc_Page(Screen):
+    def type_click(self,value):
+        self.ids.type_inc.text = value
+
+    def type_click2(self,value):    
+        self.ids.person.text = value
+
     def add_income(self):
         inc_sheet = workbook.worksheet("Income list")
         filled_rows = len(inc_sheet.get_all_values())
         amount = self.ids.amt_inp.text
         note = self.ids.note_inp.text
+        type_inc = self.ids.type_inc.text
+        who = self.ids.person.text
         inc_sheet.update_cell(filled_rows+1,1,today)
         inc_sheet.update_cell(filled_rows+1,2,amount)
-        inc_sheet.update_cell(filled_rows+1,3,note)
+        inc_sheet.update_cell(filled_rows+1,3,type_inc)
+        inc_sheet.update_cell(filled_rows+1,4,note)
+        inc_sheet.update_cell(filled_rows+1,5,who)
         self.ids.amt_inp.text = ""
         self.ids.note_inp.text = ""
+        self.ids.type_inc.text = "Type"
+        self.ids.person.text = "Who?"
 
 class Display_Page(Screen):
     def filter_records(self):
@@ -79,7 +96,12 @@ class Display_Page(Screen):
         record_type = self.ids.record_spinner.text
         expense_type = self.ids.type_spinner.text
         date_filter = self.ids.date_spinner.text
+        person = self.ids.person_filter.text
         total = 0
+        if (record_type=="Income"):
+            self.ids.type_spinner.disabled = True
+        else:
+            self.ids.type_spinner.disabled = False
         if (record_type=="Expense"):
             using = workbook.worksheet("Expences list")
         else:
@@ -87,6 +109,13 @@ class Display_Page(Screen):
         data = using.get_all_values()[1:]
         self.ids.display_grid.clear_widgets()
         row_id = 1
+        self.ids.display_grid.add_widget(Label(text="IDS", font_size="18dp"))
+        self.ids.display_grid.add_widget(Label(text="DATE", font_size="18dp"))
+        self.ids.display_grid.add_widget(Label(text="AMOUNT", font_size="18dp"))
+        self.ids.display_grid.add_widget(Label(text="TYPE", font_size="18dp"))
+        self.ids.display_grid.add_widget(Label(text="NOTE", font_size="18dp"))
+        self.ids.display_grid.add_widget(Label(text="WHO",font_size="18dp" ))
+
         for record in data:
             if (record_type=="Expense" and expense_type!="All" ):
                 if (record[2]!=expense_type):
@@ -100,15 +129,16 @@ class Display_Page(Screen):
             elif (date_filter=="This Month"):
                 if (check_month(record[0])!=True):
                     continue
+            if (person!="All"):
+                if (record[4]!=person):
+                    continue
             self.ids.display_grid.add_widget(Label(text=str(row_id), font_size="18dp"))
             self.ids.display_grid.add_widget(Label(text=record[0], font_size="18dp"))
             self.ids.display_grid.add_widget(Label(text=record[1], font_size="18dp"))
             self.ids.display_grid.add_widget(Label(text=record[2], font_size="18dp"))
             total+=int(record[1])
-            if len(record) > 3:
-                self.ids.display_grid.add_widget(Label(text=record[3], font_size="18dp")) 
-            else:
-                self.ids.display_grid.add_widget(Label(text="N/A", font_size="18dp"))
+            self.ids.display_grid.add_widget(Label(text=record[3], font_size="18dp"))
+            self.ids.display_grid.add_widget(Label(text=record[4],font_size="18dp" )) 
             row_id += 1
         self.ids.display_grid.add_widget(Label(text="TOTAL",font_size = "18dp"))
         self.ids.display_grid.add_widget(Label(text="--",font_size = "18dp"))

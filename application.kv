@@ -99,6 +99,19 @@ WinMan:
                 id: note_inp
                 multiline: False
                 font_size: "20dp"
+        
+        BoxLayout:
+            size_hint:1,.4
+            Label:
+                text: "Who?"
+                font_size: "20dp"
+            Spinner:
+                id: person
+                text: "Who?"
+                font_size: "20dp"
+                values: ["Pooja","Shaurya","Both"]
+                on_text: root.type_click2(person.text)
+
         Button:
             text: "Add"
             font_size: "20dp"
@@ -139,6 +152,28 @@ WinMan:
                 id: note_inp
                 multiline: False
                 font_size: "20dp"
+        BoxLayout:
+            size_hint:1,0.4
+            Label:
+                text: "Type"
+                font_size: "20dp"
+            Spinner:
+                id: type_inc
+                text: "Type"
+                font_size:"20dp"
+                values: ["Cash","Upi"]
+                on_text:root.type_click(type_inc.text)
+        BoxLayout:
+            size_hint:1,.4
+            Label:
+                text: "Who?"
+                font_size: "20dp"
+            Spinner:
+                id: person
+                text: "Who?"
+                font_size: "20dp"
+                values: ["Pooja","Shaurya","Both"]
+                on_text: root.type_click2(person.text)
         Button:
             text: "Add"
             font_size: "20dp"
@@ -224,6 +259,12 @@ WinMan:
                 #width: "100dp"
                 on_text: root.filter_records()
 
+            Spinner:
+                id: person_filter
+                text: "All"
+                values:["All","Pooja","Shauyra","Both"]
+                on_text:root.filter_records()
+
         ScrollView:
             size_hint: 1, 1
             do_scroll_x: True 
@@ -231,7 +272,7 @@ WinMan:
 
             GridLayout:
                 id: display_grid
-                cols: 5 
+                cols: 6 
                 size_hint_y: None
                 size_hint_x: None
                 col_force_default: True
