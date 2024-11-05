@@ -62,6 +62,7 @@ class Exp_Page(Screen):
         self.ids.amt_inp.text = ""
         self.ids.type_exp.text= "Type"
         self.ids.note_inp.text = ""
+        self.ids.person.text = "Who?"
 
 
 class Inc_Page(Screen):
