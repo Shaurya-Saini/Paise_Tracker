@@ -156,24 +156,30 @@ class Delete_Page(Screen):
         iden = int(self.ids.del_id.text)
         iden+=1
         del_type = self.ids.type_del.text
-        
+
         if (del_type=="Expence"):
             using = exp_sheet
             using.update_cell(iden,1,"")
             using.update_cell(iden,2,"")
             using.update_cell(iden,3,"")
             using.update_cell(iden,4,"")
+            using.update_cell(iden,5,"")
         else:
             using = inc_sheet
             using.update_cell(iden,1,"")
             using.update_cell(iden,2,"")
             using.update_cell(iden,3,"")
-        
+            using.update_cell(iden,4,"")
+            using.update_cell(iden,5,"")
+    
         all_rows = using.get_all_values()
         non_empty_rows = [row for row in all_rows if any(cell.strip() for cell in row)]
-        using.clear()
+        
         if non_empty_rows:
-            using.update(f'A1:D{len(non_empty_rows)}', non_empty_rows)
+            using.clear()
+            using.update(f'A1:E{len(non_empty_rows)}', non_empty_rows)
+    
+
         self.ids.del_id.text = ""
         self.ids.type_del.text = "Type"
 
